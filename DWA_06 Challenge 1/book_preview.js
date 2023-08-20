@@ -1,41 +1,41 @@
-// Importing 'books' and 'authors' arrays from the data.js file
+// Importing data from 'data.js' module
 import { books, authors } from './data.js';
 
-// Adding a click event listener to an element with a '[data-list-items]' attribute
+// Adding a click event listener to an element with a 'data-list-items' attribute
 document.querySelector('[data-list-items]').addEventListener('click', (event) => {
-    // Converting the event path to an array (handling different browsers)
+    // Getting an array of nodes in the event's path (accounting for browser compatibility)
     const pathArray = Array.from(event.path || event.composedPath());
-    let active = null; // Initializing a variable to store the active book
+    let active = null;
 
-    // Looping through the path elements to find the clicked element with dataset 'preview'
+    // Looping through the nodes in the path array
     for (const node of pathArray) {
-        if (active) break; // If active book is found, exit the loop
+        if (active) break;
 
+        // Checking if the current node has a 'data-preview' attribute
         if (node?.dataset?.preview) {
             let result = null;
 
-            // Looping through the 'books' array to find a book with a matching ID
+            // Searching for a book with a matching ID in the 'books' array
             for (const singleBook of books) {
-                if (result) break; // If result is found, exit the loop
+                if (result) break;
                 if (singleBook.id === node?.dataset?.preview) result = singleBook;
             }
 
-            active = result; // Assigning the found book to the 'active' variable
+            // Assigning the found book to the 'active' variable
+            active = result;
         }
     }
 
+    // Displaying book information if a matching book was found
     if (active) {
-        // Updating the UI with details of the active book
+        // Opening an element with 'data-list-active' attribute
         document.querySelector('[data-list-active]').open = true;
+        
+        // Updating image sources and text content based on the active book
         document.querySelector('[data-list-blur]').src = active.image;
         document.querySelector('[data-list-image]').src = active.image;
         document.querySelector('[data-list-title]').innerText = active.title;
-        
-        // Displaying the author's name and publication year
         document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
-        
-        // Displaying the book's description
         document.querySelector('[data-list-description]').innerText = active.description;
     }
 });
-
