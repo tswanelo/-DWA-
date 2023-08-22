@@ -1,20 +1,27 @@
+function setOverlayState(selector, isOpen) {
+    const overlay = document.querySelector(selector);
+    if (overlay) {
+        overlay.open = isOpen;
+    }
+}
+
 document.querySelector('[data-search-cancel]').addEventListener('click', () => {
-    document.querySelector('[data-search-overlay]').open = false
-})
+    setOverlayState('[data-search-overlay]', false);
+});
 
 document.querySelector('[data-settings-cancel]').addEventListener('click', () => {
-    document.querySelector('[data-settings-overlay]').open = false
-})
+    setOverlayState('[data-settings-overlay]', false);
+});
 
 document.querySelector('[data-header-search]').addEventListener('click', () => {
-    document.querySelector('[data-search-overlay]').open = true 
-    document.querySelector('[data-search-title]').focus()
-})
+    setOverlayState('[data-search-overlay]', true);
+    document.querySelector('[data-search-title]').focus();
+});
 
 document.querySelector('[data-header-settings]').addEventListener('click', () => {
-    document.querySelector('[data-settings-overlay]').open = true 
-})
+    setOverlayState('[data-settings-overlay]', true);
+});
 
 document.querySelector('[data-list-close]').addEventListener('click', () => {
-    document.querySelector('[data-list-active]').open = false
-})
+    setOverlayState('[data-list-active]', false);
+});

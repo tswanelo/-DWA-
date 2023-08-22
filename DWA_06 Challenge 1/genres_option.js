@@ -1,16 +1,21 @@
 import { genres } from './data.js';
 
-const genreHtml = document.createDocumentFragment();
-const firstGenreElement = document.createElement('option');
-firstGenreElement.value = 'any';
-firstGenreElement.innerText = 'All Genres';
-genreHtml.appendChild(firstGenreElement);
-
-for (const [id, name] of Object.entries(genres)) {
+function createGenreOption(id, name) {
     const element = document.createElement('option');
     element.value = id;
     element.innerText = name;
+    return element;
+}
+
+const genreHtml = document.createDocumentFragment();
+const firstGenreElement = createGenreOption('any', 'All Genres');
+genreHtml.appendChild(firstGenreElement);
+
+for (const [id, name] of Object.entries(genres)) {
+    const element = createGenreOption(id, name);
     genreHtml.appendChild(element);
 }
 
-document.querySelector('[data-search-genres]').appendChild(genreHtml);
+const searchGenresContainer = document.querySelector('[data-search-genres]');
+searchGenresContainer.appendChild(genreHtml);
+
