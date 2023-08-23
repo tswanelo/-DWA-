@@ -1,11 +1,14 @@
+import {books, authors, BOOKS_PER_PAGE, matches, page } from './data.js';
 import './genres_option.js';
 import './authors_option.js';
 import './Button_and_Overlay.js';
 import './settings_form.js';
 import './search_form.js';
 import './showMore_Button.js';
-import './book_preview.js';
-import { books, authors, BOOKS_PER_PAGE, matches, page } from './data.js';
+import { BookDisplayComponent } from './book_preview.js';
+// Make a copy of the BookDisplayComponent class to start using it and make it work.
+const bookDisplayComponent = new BookDisplayComponent();
+
 
 // Function to create a book preview element
 function createBookPreview({ author, id, image, title }) {

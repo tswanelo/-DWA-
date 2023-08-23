@@ -1,34 +1,49 @@
-// Importing data from 'data.js' module
+// Importing the 'books' and 'authors' arrays from the 'data.js' module
 import { books, authors } from './data.js';
 
-// Function to display book information
-function displayBookInformation(bookId) {
-    const active = books.find(book => book.id === bookId);
+// Defining a class for the book display component
+export class BookDisplayComponent {
+    constructor() {
+        // Initializing DOM elements using attribute selectors
+        this.activeBookElement = document.querySelector('[data-list-active]');
+        this.blurImageElement = document.querySelector('[data-list-blur]');
+        this.imageElement = document.querySelector('[data-list-image]');
+        this.titleElement = document.querySelector('[data-list-title]');
+        this.subtitleElement = document.querySelector('[data-list-subtitle]');
+        this.descriptionElement = document.querySelector('[data-list-description]');
 
-    if (active) {
-        // Opening an element with 'data-list-active' attribute
-        document.querySelector('[data-list-active]').open = true;
-        
-        // Updating image sources and text content based on the active book
-        document.querySelector('[data-list-blur]').src = active.image;
-        document.querySelector('[data-list-image]').src = active.image;
-        document.querySelector('[data-list-title]').innerText = active.title;
-        document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
-        document.querySelector('[data-list-description]').innerText = active.description;
+        // Adding a click event listener to the list items container
+        document.querySelector('[data-list-items]').addEventListener('click', this.handleItemClick.bind(this));
     }
-}
 
-// Adding a click event listener to an element with a 'data-list-items' attribute
-document.querySelector('[data-list-items]').addEventListener('click', (event) => {
-    // Getting an array of nodes in the event's path (accounting for browser compatibility)
-    const pathArray = Array.from(event.path || event.composedPath());
+    // Method to display book information based on the provided bookId
+    displayBookInformation(bookId) {
+        // Find the book with the given id from the 'books' array
+        const active = books.find(book => book.id === bookId);
 
-    // Looping through the nodes in the path array
-    for (const node of pathArray) {
-        // Checking if the current node has a 'data-preview' attribute
-        if (node?.dataset?.preview) {
-            displayBookInformation(node.dataset.preview);
-            break;
+        if (active) {
+            // Update the UI elements with the book information
+            this.activeBookElement.open = true;
+            this.blurImageElement.src = active.image;
+            this.imageElement.src = active.image;
+            this.titleElement.innerText = active.title;
+            this.subtitleElement.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+            this.descriptionElement.innerText = active.description;
         }
     }
-});
+
+    // Event handler for clicking on a book item
+    handleItemClick(event) {
+        // Create an array of DOM elements in the event's path
+        const pathArray = Array.from(event.path || event.composedPath());
+
+        // Iterate through the path elements to find the book preview data
+        for (const node of pathArray) {
+            if (node?.dataset?.preview) {
+                // Call the method to display book information using the preview data
+                this.displayBookInformation(node.dataset.preview);
+                break; // Exit the loop once a valid node is found
+            }
+        }
+    }
+}
