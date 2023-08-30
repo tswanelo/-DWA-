@@ -1,6 +1,22 @@
-import {  BOOKS_PER_PAGE } from './data.js'
+// bookList.js
+import { createBookPreview } from './bookPreview.js'; // Make sure the import is correct
+import { BOOKS_PER_PAGE, matches, page } from './data.js'
 
-// showMoreButton.js
+export function updateBookList(booksToDisplay) {
+    const bookListElement = document.querySelector('[data-list-items]');
+    bookListElement.innerHTML = '';
+
+    // Creating a fragment to efficiently add book previews to the DOM
+    const fragment = document.createDocumentFragment();
+    for (const book of booksToDisplay) {
+        const previewElement = createBookPreview(book);
+        fragment.appendChild(previewElement);
+    }
+
+    // Appending the fragment to the book list element
+    bookListElement.appendChild(fragment);
+}
+
 export function handleShowMoreButtonClick() {
     const fragment = document.createDocumentFragment();
 
