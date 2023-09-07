@@ -1,4 +1,4 @@
-// optionGenres.js
+// genresoption.js
 import { genres } from './data.js';
 
 export function initializeGenresDropdown() {

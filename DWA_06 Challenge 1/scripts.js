@@ -1,4 +1,4 @@
-// init.js
+// scripts.js
 import {
     updateBookList,
     handleShowMoreButtonClick,
@@ -23,6 +23,11 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 }
 
 // Initialize UI element event listeners
+
+document.querySelector('[data-settings-form]').addEventListener('submit', handleSettingsFormSubmit);
+document.querySelector('[data-search-form]').addEventListener('submit', handleSearchFormSubmit);
+document.querySelector('[data-list-button]').addEventListener('click', handleShowMoreButtonClick);
+document.querySelector('[data-list-items]').addEventListener('click', handleBookPreviewClick);
 
 // Search cancel button
 document.querySelector('[data-search-cancel]').addEventListener('click', () => {
@@ -50,8 +55,6 @@ document.querySelector('[data-list-close]').addEventListener('click', () => {
     document.querySelector('[data-list-active]').open = false;
 });
 
-// Settings form submit event
-document.querySelector('[data-settings-form]').addEventListener('submit', handleSettingsFormSubmit);
 
 // Initialize search genres dropdown
 
@@ -95,18 +98,3 @@ document.querySelector('[data-search-authors]').appendChild(authorsHtml);
 document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
 document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0;
 
-// Initialize search form
-
-// Attach the search form submit handler function
-document.querySelector('[data-search-form]').addEventListener('submit', handleSearchFormSubmit);
-
-
-// Initialize show more button
-
-// Attach the "show more" button click handler function
-document.querySelector('[data-list-button]').addEventListener('click', handleShowMoreButtonClick);
-
-// Initialize book preview click handler
-
-// Attach the book preview click handler function to the list items container
-document.querySelector('[data-list-items]').addEventListener('click', handleBookPreviewClick);

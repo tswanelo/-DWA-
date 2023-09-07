@@ -1,6 +1,6 @@
 // searchForm.js
 import { updateBookList } from './bookList.js';
-import { books, BOOKS_PER_PAGE } from './data.js'
+import { books, BOOKS_PER_PAGE, page, matches} from './data.js'
 
 // Function to handle the submission of the search form
 export function handleSearchFormSubmit(event) {
@@ -35,6 +35,12 @@ export function handleSearchFormSubmit(event) {
 
     // Updating the book list and showing/hiding list message
     updateBookList(matches);
+    const listMessage = document.querySelector('[data-list-message]');
+    if (result.length < 1) {
+        listMessage.classList.add('list__message_show');
+    } else {
+        listMessage.classList.remove('list__message_show');
+    }
 
     // Updating the "Show more" button's status and label
     const listButton = document.querySelector('[data-list-button]');
