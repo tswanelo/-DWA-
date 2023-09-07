@@ -1,7 +1,5 @@
 // handlers.js
-
-// Importing constants from 'Exports.js'
-import { STEP_AMOUNT, MIN_NUMBER, MAX_NUMBER } from './Exports.js';
+import { STEP_AMOUNT, MIN_NUMBER, MAX_NUMBER } from './main.js';
 
 // Handler function for subtract button
 export const subtractHandler = (number, subtract, add) => {
